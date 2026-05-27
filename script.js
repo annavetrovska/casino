@@ -68,12 +68,10 @@ function updateUI() {
     }
 }
 
-// Inicializace po načtení stránky
+// Když načtu stránku, zavolá se updateUI
 window.onload = function() {
     updateUI();
 };
-
-// --- LOGIKA PRO HOD MINCÍ ---
 
 // Funkce pro hod mincí
 function flip(chosenSide) {
@@ -88,47 +86,31 @@ function flip(chosenSide) {
     }
 
     balance -= 10;
-    updateUI();
 
     const coinElement = document.getElementById("coin");
     const messageElement = document.getElementById("message");
 
-    // Přidání animace otáčení a přechodného textu
+    // Náhodné číslo: 0 = Panna, 1 = Orel
+    const resultNum = Math.floor(Math.random() * 2);
+    const result = (resultNum === 0) ? "Panna" : "Orel";
+    const emoji = (result === "Panna") ? "👩" : "🦅";
+
+    // Zobrazení výsledného symbolu
     if (coinElement) {
-        coinElement.classList.add("flipping");
-        coinElement.innerText = "🪙"; // Během točení ukážeme minci
+        coinElement.innerText = emoji;
     }
-    
+
+    // Vyhodnocení výhry
     if (messageElement) {
-        messageElement.innerText = "Mince se točí...";
-        messageElement.style.color = "white";
+        if (result === chosenSide) {
+            balance += 20; // Vrátí se sázka + výhra dalších 10
+            messageElement.innerText = `Vyhrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}. +$20`;
+            messageElement.style.color = "cyan";
+        } else {
+            messageElement.innerText = `Prohrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}.`;
+            messageElement.style.color = "white";
+        }
     }
 
-    // Počkáme 1 sekundu na animaci otáčení
-    setTimeout(() => {
-        // Náhodné číslo: 0 = Panna, 1 = Orel
-        const resultNum = Math.floor(Math.random() * 2);
-        const result = (resultNum === 0) ? "Panna" : "Orel";
-        const emoji = (result === "Panna") ? "👩" : "🦅";
-
-        // Zastavení animace a zobrazení výsledného symbolu
-        if (coinElement) {
-            coinElement.classList.remove("flipping");
-            coinElement.innerText = emoji;
-        }
-
-        // Vyhodnocení výhry
-        if (messageElement) {
-            if (result === chosenSide) {
-                balance += 20; // Vrátí se sázka + výhra dalších 10
-                messageElement.innerText = `Vyhrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}. +$20`;
-                messageElement.style.color = "cyan";
-            } else {
-                messageElement.innerText = `Prohrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}.`;
-                messageElement.style.color = "white";
-            }
-        }
-
-        updateUI();
-    }, 1000);
+    updateUI();
 }

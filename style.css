@@ -81,17 +81,3 @@ header {
     justify-content: center;
     user-select: none;
 }
-
-/* Animace otáčení mince */
-@keyframes spinCoin {
-    0% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(1800deg); /* Otočí se 5x dokola */
-    }
-}
-
-.coin.flipping {
-    animation: spinCoin 1s ease-out;
-}
