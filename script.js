@@ -91,17 +91,14 @@ function flip(chosenSide) {
     const messageElement = document.getElementById("message");
 
     // Náhodné číslo: 0 = Panna, 1 = Orel
-    const resultNum = Math.floor(Math.random() * 2);
-    
-    let result = "";
-    let emoji = "";
+    const resultNum = Math.floor(Math.random() * 2); // <0,1) * 2 = <0,2), zaokrouhlím dolů = 0 nebo 1
     
     if (resultNum === 0) {
-        result = "Panna";
-        emoji = "👩";
+        let result = "Panna";
+        let emoji = "👩";
     } else {
-        result = "Orel";
-        emoji = "🦅";
+        let result = "Orel";
+        let emoji = "🦅";
     }
 
     // Zobrazení výsledného symbolu
