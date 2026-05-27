@@ -2,32 +2,28 @@ let balance = 100;
 const symbols = ["🍋", "🍒", "7️⃣", "🍇", "💎"];
 
 function spin() {
-    // 1. Check if the player has enough money
     if (balance < 10) {
         updateUI();
         return;
     }
 
-    // 2. Pay 10 credits to spin
     balance -= 10;
 
-    // 3. Roll 3 random symbols
     const slot1 = getRandomSymbol();
     const slot2 = getRandomSymbol();
     const slot3 = getRandomSymbol();
 
-    // 4. Show the symbols on the screen
     updateReel("reel1", slot1);
     updateReel("reel2", slot2);
     updateReel("reel3", slot3);
 
-    // 5. Figure out the winnings based on matches
+    // Figure out the winnings based on matches
     calculateWinnings(slot1, slot2, slot3);
 }
 
 // Helper function to grab a random emoji
 function getRandomSymbol() {
-    const randomIndex = Math.floor(Math.random() * symbols.length);
+    const randomIndex = Math.floor(Math.random() * symbols.length); // <0,1) * 5 = <0,5), zaokrohlím na podlahu = dolů, jediné čísla 01234
     return symbols[randomIndex];
 }
 
@@ -43,13 +39,13 @@ function calculateWinnings(s1, s2, s3) {
     const messageElement = document.getElementById("message");
     if (!messageElement) return;
 
-    // Check for 3 of a kind (All match)
+    // Check for 3 of a kind (All match), && = 1. i 2. podmínka pravdivá, AND
     if (s1 === s2 && s2 === s3) {
         balance += 50;
         messageElement.innerText = "JACKPOT! +$50";
         messageElement.style.color = "#ff00ff";
     } 
-    // Check for 2 of a kind (Any two match)
+    // Check for 2 of a kind (Any two match), || = OR , aspoň jedna pravdivá
     else if (s1 === s2 || s1 === s3 || s2 === s3) {
         balance += 20;
         messageElement.innerText = "Small Match! +$20";
