@@ -92,13 +92,16 @@ function flip(chosenSide) {
 
     // Náhodné číslo: 0 = Panna, 1 = Orel
     const resultNum = Math.floor(Math.random() * 2); // <0,1) * 2 = <0,2), zaokrouhlím dolů = 0 nebo 1
-    
+
+    let result;
+    let emoji;
+
     if (resultNum === 0) {
-        let result = "Panna";
-        let emoji = "👩";
+        result = "Panna";
+        emoji = "👩";
     } else {
-        let result = "Orel";
-        let emoji = "🦅";
+        result = "Orel";
+        emoji = "🦅";
     }
 
     // Zobrazení výsledného symbolu
