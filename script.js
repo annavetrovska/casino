@@ -167,7 +167,7 @@ function updatePoints(amount) {
     }
     const scoreElement = document.getElementById('score-counter');
     if (scoreElement) {
-        scoreElement.innerText = 'Celkové body: ' + totalPoints;
+        scoreElement.innerText = 'balance: ' + totalPoints;
     }
 }
 
