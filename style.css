@@ -55,29 +55,11 @@ header {
     text-decoration: underline;
 }
 
-.choice-container {
-    margin: 20px 0;
+.flip-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
-}
-
-.choice-btn {
-    background: rgb(0, 0, 0);
-    color: rgb(255, 0, 255);
-    border: 2px solid transparent;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-    padding: 10px 20px;
-    font-size: 1rem;
-}
-
-.choice-btn.active {
-    background: rgb(255, 0, 255);
-    color: rgb(0, 0, 0);
-    opacity: 1;
-    font-weight: bold;
-    border: 2px solid rgb(0, 0, 0);
+    margin: 20px 0;
 }
 
 .coin-container {

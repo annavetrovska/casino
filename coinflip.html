@@ -16,12 +16,6 @@
         </div>
         
         <div class="casino-container">
-            <!-- Volba strany mince -->
-            <div class="choice-container">
-                <button id="btn-panna" class="choice-btn active" onclick="selectSide('Panna')">PANNA 👩</button>
-                <button id="btn-orel" class="choice-btn" onclick="selectSide('Orel')">OREL 🦅</button>
-            </div>
-
             <!-- Zobrazení mince -->
             <div class="coin-container">
                 <div id="coin" class="coin">🪙</div>
@@ -29,7 +23,10 @@
 
             <div class="controls">
                 <p>Balance: $<span id="balance">100</span></p>
-                <button onclick="flip()">HODIT ($10)</button>
+                <div class="flip-buttons">
+                    <button onclick="flip('Panna')">HODIT PANNA 👩 ($10)</button>
+                    <button onclick="flip('Orel')">HODIT OREL 🦅 ($10)</button>
+                </div>
             </div>
             
             <h2 id="message">Vyber si stranu a zkus své štěstí!</h2>

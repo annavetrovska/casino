@@ -75,28 +75,8 @@ window.onload = function() {
 
 // --- LOGIKA PRO HOD MINCÍ ---
 
-let playerChoice = "Panna"; // Výchozí volba hráče
-
-// Funkce pro výběr strany mince (spouští se kliknutím na tlačítka)
-function selectSide(side) {
-    playerChoice = side;
-    
-    const btnPanna = document.getElementById("btn-panna");
-    const btnOrel = document.getElementById("btn-orel");
-    
-    if (!btnPanna || !btnOrel) return;
-    
-    if (side === "Panna") {
-        btnPanna.classList.add("active");
-        btnOrel.classList.remove("active");
-    } else {
-        btnOrel.classList.add("active");
-        btnPanna.classList.remove("active");
-    }
-}
-
 // Funkce pro hod mincí
-function flip() {
+function flip(chosenSide) {
     // Ověření dostatečného zůstatku
     if (balance < 10) {
         const messageElement = document.getElementById("message");
@@ -139,7 +119,7 @@ function flip() {
 
         // Vyhodnocení výhry
         if (messageElement) {
-            if (result === playerChoice) {
+            if (result === chosenSide) {
                 balance += 20; // Vrátí se sázka + výhra dalších 10
                 messageElement.innerText = `Vyhrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}. +$20`;
                 messageElement.style.color = "cyan";
