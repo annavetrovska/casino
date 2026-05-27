@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Casino - Hod Mincí</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Hod Mincí</h1>
+    </header>
+    <main>
+        <div class="back-link-container">
+            <a href="index.html" class="back-link">&lt; Zpět na úvod</a>
+        </div>
+        
+        <div class="casino-container">
+            <!-- Volba strany mince -->
+            <div class="choice-container">
+                <button id="btn-panna" class="choice-btn active" onclick="selectSide('Panna')">PANNA 👩</button>
+                <button id="btn-orel" class="choice-btn" onclick="selectSide('Orel')">OREL 🦅</button>
+            </div>
+
+            <!-- Zobrazení mince -->
+            <div class="coin-container">
+                <div id="coin" class="coin">🪙</div>
+            </div>
+
+            <div class="controls">
+                <p>Balance: $<span id="balance">100</span></p>
+                <button onclick="flip()">HODIT ($10)</button>
+            </div>
+            
+            <h2 id="message">Vyber si stranu a zkus své štěstí!</h2>
+        </div>
+    </main>
+</body>
+<script src="script.js"></script>
+</html>

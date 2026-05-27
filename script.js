@@ -1,4 +1,5 @@
-let balance = 100;
+// Načtení zůstatku z localStorage, nebo 100, pokud ještě nehrál
+let balance = parseInt(localStorage.getItem("casino_balance")) || 100;
 const symbols = ["🍋", "🍒", "7️⃣", "🍇", "💎"];
 
 function spin() {
@@ -66,4 +67,91 @@ function updateUI() {
     if (balanceElement) {
         balanceElement.innerText = balance;
     }
+    // Uložení aktuálního zůstatku do paměti prohlížeče
+    localStorage.setItem("casino_balance", balance);
+}
+
+// Inicializace po načtení stránky
+window.onload = function() {
+    updateUI();
+};
+
+// --- LOGIKA PRO HOD MINCÍ ---
+
+let playerChoice = "Panna"; // Výchozí volba hráče
+
+// Funkce pro výběr strany mince (spouští se kliknutím na tlačítka)
+function selectSide(side) {
+    playerChoice = side;
+    
+    const btnPanna = document.getElementById("btn-panna");
+    const btnOrel = document.getElementById("btn-orel");
+    
+    if (!btnPanna || !btnOrel) return;
+    
+    if (side === "Panna") {
+        btnPanna.classList.add("active");
+        btnOrel.classList.remove("active");
+    } else {
+        btnOrel.classList.add("active");
+        btnPanna.classList.remove("active");
+    }
+}
+
+// Funkce pro hod mincí
+function flip() {
+    // Ověření dostatečného zůstatku
+    if (balance < 10) {
+        const messageElement = document.getElementById("message");
+        if (messageElement) {
+            messageElement.innerText = "Nemáš dostatek peněz na sázku ($10)!";
+            messageElement.style.color = "red";
+        }
+        return;
+    }
+
+    balance -= 10;
+    updateUI();
+
+    const coinElement = document.getElementById("coin");
+    const messageElement = document.getElementById("message");
+
+    // Přidání animace otáčení a přechodného textu
+    if (coinElement) {
+        coinElement.classList.add("flipping");
+        coinElement.innerText = "🪙"; // Během točení ukážeme minci
+    }
+    
+    if (messageElement) {
+        messageElement.innerText = "Mince se točí...";
+        messageElement.style.color = "white";
+    }
+
+    // Počkáme 1 sekundu na animaci otáčení
+    setTimeout(() => {
+        // Náhodné číslo: 0 = Panna, 1 = Orel
+        const resultNum = Math.floor(Math.random() * 2);
+        const result = (resultNum === 0) ? "Panna" : "Orel";
+        const emoji = (result === "Panna") ? "👩" : "🦅";
+
+        // Zastavení animace a zobrazení výsledného symbolu
+        if (coinElement) {
+            coinElement.classList.remove("flipping");
+            coinElement.innerText = emoji;
+        }
+
+        // Vyhodnocení výhry
+        if (messageElement) {
+            if (result === playerChoice) {
+                balance += 20; // Vrátí se sázka + výhra dalších 10
+                messageElement.innerText = `Vyhrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}. +$20`;
+                messageElement.style.color = "cyan";
+            } else {
+                messageElement.innerText = `Prohrál jsi! Padla ${result === "Panna" ? "Panna 👩" : "Orel 🦅"}.`;
+                messageElement.style.color = "white";
+            }
+        }
+
+        updateUI();
+    }, 1000);
 }
