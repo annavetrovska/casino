@@ -1,5 +1,4 @@
-// Načtení zůstatku z localStorage, nebo 100, pokud ještě nehrál
-let balance = parseInt(localStorage.getItem("casino_balance")) || 100;
+let balance = 100;
 const symbols = ["🍋", "🍒", "7️⃣", "🍇", "💎"];
 
 function spin() {
@@ -67,8 +66,6 @@ function updateUI() {
     if (balanceElement) {
         balanceElement.innerText = balance;
     }
-    // Uložení aktuálního zůstatku do paměti prohlížeče
-    localStorage.setItem("casino_balance", balance);
 }
 
 // Inicializace po načtení stránky
