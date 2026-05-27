@@ -5,6 +5,50 @@ body {
     text-align: center;
 }
 
+header {
+    background-color: rgb(255, 0, 255);
+    color: rgb(243, 196, 239);
+    padding: 10px 0;
+}
+
+a {
+    color: rgb(255, 0, 255);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background: rgb(0, 0, 0);
+    color: rgb(255, 0, 255);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background: rgb(50, 50, 50);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Společné rozložení */
+.back-link-container {
+    margin: 20px auto;
+    text-align: left;
+    max-width: 400px;
+    padding: 0 10px;
+}
+
+/* Styly pro Automat */
 .slot-machine {
     display: flex;
     justify-content: center;
@@ -22,39 +66,7 @@ body {
     line-height: 80px;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    background: rgb(0, 0, 0);
-    color: rgb(255, 0, 255);
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-header {
-    background-color: rgb(255, 0, 255) ;
-    color: rgb(243, 196, 239);
-}
-
 /* Styly pro Hod Mincí */
-.back-link-container {
-    margin: 20px auto;
-    text-align: left;
-    max-width: 400px;
-    padding: 0 10px;
-}
-
-.back-link {
-    color: rgb(255, 0, 255);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
 .flip-buttons {
     display: flex;
     justify-content: center;
@@ -80,4 +92,72 @@ header {
     align-items: center;
     justify-content: center;
     user-select: none;
+}
+
+/* Styly pro Blackjack */
+.rules {
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    line-height: 1.4;
+}
+
+.area {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px auto;
+    max-width: 400px;
+    border: 2px solid rgb(255, 0, 255);
+}
+
+.area h3 {
+    margin: 0 0 10px 0;
+    color: rgb(255, 0, 255);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cards {
+    font-size: 24px;
+    font-weight: bold;
+    min-height: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-visual {
+    background: white;
+    color: rgb(255, 0, 255);
+    padding: 5px 14px;
+    border-radius: 8px;
+    border: 2px solid rgb(255, 0, 255);
+}
+
+.score {
+    font-size: 1rem;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#score-counter {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+#message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    min-height: 25px;
 }

@@ -3,52 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Růžový Blackjack 21</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <div id="score-counter">Celkové body: 0</div>
-        
+    <header>
         <h1>Over/Under 21</h1>
-        <p class="rules">Dostaň se blíž k 21 než dealer, ale nesmíš přetáhnout! Karty jsou 1-10. Dealer hraje do 17.</p>
-
-        <div class="area">
-            <h3>Karty Dealera</h3>
-            <div id="dealer-cards" class="cards">-</div>
-            <div id="dealer-score" class="score">Skóre: 0</div>
+    </header>
+    <main>
+        <div class="back-link-container">
+            <a href="index.html" class="back-link">&lt; Zpět na úvod</a>
         </div>
+        
+        <div class="casino-container">
+            <div id="score-counter">Celkové body: 0</div>
+            
+            <p class="rules">Dostaň se blíž k 21 než dealer, ale nesmíš přetáhnout! Karty jsou 1-10. Dealer hraje do 17.</p>
 
-        <div class="area">
-            <h3>Moje Karty</h3>
-            <div id="player-cards" class="cards">-</div>
-            <div id="player-score" class="score">Skóre: 0</div>
+            <div class="area">
+                <h3>Karty Dealera</h3>
+                <div id="dealer-cards" class="cards">-</div>
+                <div id="dealer-score" class="score">Skóre: 0</div>
+            </div>
+
+            <div class="area">
+                <h3>Moje Karty</h3>
+                <div id="player-cards" class="cards">-</div>
+                <div id="player-score" class="score">Skóre: 0</div>
+            </div>
+
+            <div id="message">Klikni na "Start hry" a začni hrát!</div>
+
+            <div class="controls" id="game-controls" style="display: none;">
+                <button onclick="hit()">Další kartu (Hit)</button>
+                <button onclick="stand()">Stačí (Stand)</button>
+            </div>
+
+            <div class="controls" id="start-controls">
+                <button onclick="startGame()">Start hry</button>
+            </div>
         </div>
-
-        <div id="message">Klikni na "Start hry" a začni hrát!</div>
-
-        <div class="controls" id="game-controls" style="display: none;">
-            <button class="btn-hit" onclick="hit()">Další kartu (Hit)</button>
-            <button class="btn-stand" onclick="stand()">Stačí (Stand)</button>
-        </div>
-
-        <div class="controls" id="start-controls">
-            <button class="btn-action" onclick="startGame()">Start hry</button>
-        </div>
-    </div>
+    </main>
 
     <script src="script_blackjack.js"></script>
-</body>
-</html>
-    
 </body>
 </html>
