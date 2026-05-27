@@ -110,7 +110,7 @@ function flip(chosenSide) {
     if (messageElement) {
         if (result === chosenSide) {
             balance += 20; // Vrátí se sázka + výhra dalších 10
-            messageElement.innerText = `Vyhrál jsi! Padla ${result} ${emoji}. +$20`;
+            messageElement.innerText = `Vyhrál jsi! Padla ${result} ${emoji}. +$20`; //interpolace
             messageElement.style.color = "cyan";
         } else {
             messageElement.innerText = `Prohrál jsi! Padla ${result} ${emoji}.`;
