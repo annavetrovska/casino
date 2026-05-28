@@ -134,14 +134,7 @@ let totalPoints = 0;
 
 // Začátečnické vytvoření balíčku pomocí klasických cyklů
 function createDeck() {
-    let newDeck = [];
-    // 4 barvy
-    for (let i = 0; i < 4; i++) {
-        // Karty od 1 do 10
-        for (let value = 1; value <= 10; value++) {
-            newDeck.push(value);
-        }
-    }
+    let newDeck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     
     // Klasické zamíchání balíčku
     for (let i = newDeck.length - 1; i > 0; i--) {
