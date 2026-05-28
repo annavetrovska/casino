@@ -137,27 +137,27 @@ function createDeck() {
     let newDeck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     
     // Klasické zamíchání balíčku
-    for (let i = newDeck.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        let docasnaKarta = newDeck[i];
-        newDeck[i] = newDeck[j];
-        newDeck[j] = docasnaKarta;
+    for (let i = newDeck.length - 1; i > 0; i--) { // jede i = 39, i = 38, atd. až do i = 1
+        let randomNumber = Math.floor(Math.random() * (i + 1)); // <0,1) * {39 + 1, 38 + 1, 37 + 1 atd. až do 1 + 1}
+        let docasnaKarta = newDeck[i]; // 39, 38, 37 ...
+        newDeck[i] = newDeck[randomNumber];
+        newDeck[randomNumber] = docasnaKarta;
     }
     return newDeck;
 }
 
 // Spočítání skóre pomocí obyčejného for cyklu
-function calculateScore(hand) {
+function calculateScore(hand) { // prijde playreHand nebo dealerHand
     let celkem = 0;
-    for (let i = 0; i < hand.length; i++) {
-        celkem = celkem + hand[i];
+    for (let i = 0; i < hand.length; i++) { // i = 0, i = 1, atd. až do indexu posledniho prvku
+        celkem += hand[i];
     }
     return celkem;
 }
 
 // Aktualizace bodů na obrazovce
 function updatePoints(amount) {
-    totalPoints = totalPoints + amount;
+    totalPoints += Number(amount);
     if (totalPoints < 0) {
         totalPoints = 0; 
     }
@@ -167,61 +167,74 @@ function updatePoints(amount) {
     }
 }
 
-// Vykreslení karet bez použití složitého .map() a .join()
-function renderHand(hand, hideFirstCard) {
-    let htmlKodu = "";
-    for (let i = 0; i < hand.length; i++) {
-        if (hideFirstCard === true && i === 0) {
+// Vykreslení karet na obrazovce
+function renderHand(hand, hideFirstCard) { // hand dostane playerHand nebo dealerHand a hideFirstCard je boolean (true/false)
+    let htmlCode = "";
+    for (let i = 0; i < hand.length; i++) { // 0, 1, atd. až do delky playerHand nebo dealerHand
+        if (hideFirstCard === true && i === 0) { // && = and
             // Skrytá karta dealera
-            htmlKodu = htmlKodu + '<div class="card-visual" style="background:#555555; color:white;">?</div>';
+            htmlCode += '<div class="card-visual" style="background:#555555; color:white;">?</div>'; // skryta tam ma "?"
         } else {
             // Normální karta
-            htmlKodu = htmlKodu + '<div class="card-visual">' + hand[i] + '</div>';
+            htmlCode += '<div class="card-visual">' + hand[i] + '</div>'; // tahle tam ma tu hodnotu zjistenou podle indexu kterej se zvetsuje kazdym prubehem foru
         }
     }
-    return htmlKodu;
+    return htmlCode;
 }
 
 function startGame() {
     deck = createDeck();
     // Každý dostane na začátku jednu kartu
-    playerHand = [deck.pop()];
-    dealerHand = [deck.pop()];
+    playerHand = [deck.pop()]; // pop odstrani posledni, a tady ho zaroven da do ruky
+    dealerHand = [deck.pop()]; // to samy
     gameActive = true;
 
     const startControls = document.getElementById('start-controls');
-    if (startControls) startControls.style.display = 'none';
+    if (startControls) {
+        startControls.style.display = 'none'; // pri startu hry ho shova
+    }
 
-    const gameControls = document.getElementById('game-controls');
-    if (gameControls) gameControls.style.display = 'flex';
+    const gameControls = document.getElementById('game-controls'); // defaultne schovanej
+    if (gameControls) {
+        gameControls.style.display = 'flex'; // tady se ukaze (na zacatku hry)
+    }
 
     const messageElement = document.getElementById('message');
     if (messageElement) {
-        messageElement.innerText = "Tvoje řada! Chceš další kartu nebo stát?";
+        messageElement.innerText = "Tvoje řada! Chceš další kartu nebo stát?"; // na zacatku hry se prpise
     }
 
     updateBlackjackUI(true);
 }
 
-function updateBlackjackUI(hideDealer) {
+function updateBlackjackUI(hideDealer) { // dostane boolean
     const playerCards = document.getElementById('player-cards');
-    if (playerCards) {
-        playerCards.innerHTML = renderHand(playerHand, false);
-    }
     const playerScore = document.getElementById('player-score');
-    if (playerScore) {
-        playerScore.innerText = 'Skóre: ' + calculateScore(playerHand);
-    }
-
     const dealerCards = document.getElementById('dealer-cards');
     const dealerScore = document.getElementById('dealer-score');
+    
+    if (playerCards) {
+        playerCards.innerHTML = renderHand(playerHand, false); // renderHand hand vrati ty divy
+    }
+
+    if (playerScore) {
+        playerScore.innerText = 'Skóre: ' + calculateScore(playerHand); // dostane pole (seznam) a vrati soucet
+    }
 
     if (hideDealer === true) {
-        if (dealerCards) dealerCards.innerHTML = renderHand(dealerHand, true);
-        if (dealerScore) dealerScore.innerText = 'Skóre: ?';
-    } else {
-        if (dealerCards) dealerCards.innerHTML = renderHand(dealerHand, false);
-        if (dealerScore) dealerScore.innerText = 'Skóre: ' + calculateScore(dealerHand);
+        if (dealerCards) {
+            dealerCards.innerHTML = renderHand(dealerHand, true) // vraci divy s "?"
+        }
+        if (dealerScore) {
+            dealerScore.innerText = 'Skóre: ?'
+        }
+    } else { // tady uz ukazuje karty
+        if (dealerCards) {
+            dealerCards.innerHTML = renderHand(dealerHand, false) // vaci normalni divy s cislama
+        }
+        if (dealerScore) {
+            dealerScore.innerText = 'Skóre: ' + calculateScore(dealerHand) // vrati spocitany skore dealera
+        }
     }
 }
 
@@ -230,18 +243,18 @@ function hit() {
         return;
     }
 
-    playerHand.push(deck.pop());
-    let pScore = calculateScore(playerHand);
+    playerHand.push(deck.pop()); // vyjme posledni z deku a da ho nakonec playerHand
+    let pScore = calculateScore(playerHand); // spocita skore hraci
 
     if (pScore > 21) {
-        updateBlackjackUI(false);
+        updateBlackjackUI(false); // nezobrazuje dealera
         updatePoints(-5); // Ztráta bodů za přetažení
-        endGame('Přetáhl jsi! Máš ' + pScore + '. Dealer vyhrává! 😢');
+        endGame('Přetáhl jsi! Máš ' + pScore + '. Dealer vyhrává! 😢'); // konci hru s custom zpravou
     } else if (pScore === 21) {
-        updateBlackjackUI(true);
+        updateBlackjackUI(true); // zobrazuje dealera
         stand(); // Při 21 automaticky stojíš
     } else {
-        updateBlackjackUI(true);
+        updateBlackjackUI(true); // zobrazuje dealera
     }
 }
 
@@ -250,12 +263,12 @@ function stand() {
         return;
     }
 
-    let dScore = calculateScore(dealerHand);
+    let dScore = calculateScore(dealerHand); // spocita skore dealerovy
 
     // Dealer hraje, dokud nemá alespoň 17 (standardní pravidlo pro 21)
-    while (dScore < 17) {
-        dealerHand.push(deck.pop());
-        dScore = calculateScore(dealerHand);
+    while (dScore < 17) { // do sedumnacti dealer hituje
+        dealerHand.push(deck.pop()); // vyjme posledni z deku a da ho nakonec dealerHand
+        dScore = calculateScore(dealerHand); // spocita skore dealerovy
     }
 
     updateBlackjackUI(false);
@@ -266,31 +279,31 @@ function determineWinner() {
     let pScore = calculateScore(playerHand);
     let dScore = calculateScore(dealerHand);
 
-    if (dScore > 21) {
-        if (pScore === 21) {
+    if (dScore > 21) { // dealer presah
+        if (pScore === 21) { // player ma presne
             updatePoints(15);
             endGame('Perfektní 21! A dealer navíc přetáhl! Super výhra! 🎉');
-        } else {
+        } else { // playre ma pod
             updatePoints(10);
             endGame('Dealer měl ' + dScore + ' a přetáhl! Vyhráváš! 💖');
         }
-    } else if (pScore > dScore) {
-        if (pScore === 21) {
+    } else if (pScore > dScore) { // player ma vic ne dealer
+        if (pScore === 21) { // player ma presne
             updatePoints(15); // Bonus za přesnou 21
             endGame('Perfektní 21! Máš plný počet bodů! 👑');
-        } else {
+        } else { // dealer ma min ale player nema presne
             updatePoints(10); 
             endGame('Máš ' + pScore + ' vs Dealer ' + dScore + '. Vyhráváš! 💕');
         }
-    } else if (pScore < dScore) {
+    } else if (pScore < dScore) { // player ma min
         updatePoints(-5); 
         endGame('Dealer vyhrává s ' + dScore + ' vs tvých ' + pScore + '. 💔');
-    } else {
+    } else { // oba stejne
         endGame('Remíza! Oba máte ' + pScore + '. Nikdo neprohrál. 🤝');
     }
 }
 
-function endGame(resultMessage) {
+function endGame(resultMessage) { // prijma to message
     gameActive = false;
     const messageElement = document.getElementById('message');
     if (messageElement) {
@@ -298,12 +311,14 @@ function endGame(resultMessage) {
     }
 
     const gameControls = document.getElementById('game-controls');
-    if (gameControls) gameControls.style.display = 'none';
+    if (gameControls) gameControls.style.display = 'none'; // skreje hit a stand
 
     const startControls = document.getElementById('start-controls');
     if (startControls) {
-        startControls.style.display = 'flex';
-        const startBtn = startControls.querySelector('button');
-        if (startBtn) startBtn.innerText = "Hrát znovu";
+        startControls.style.display = 'flex'; // zobrazio start button
+        const startBtn = startControls.querySelector('button'); //najde to prvni button v start controls
+        if (startBtn) {
+            startBtn.innerText = "Hrát znovu" // prepise "Start hry" na "Hrát znovu"
+        }
     }
 }
